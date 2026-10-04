@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Nuestro juego ♡</title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+
+      background:
+        radial-gradient(
+          circle at top left,
+          #f3dfc8 0%,
+          transparent 35%
+        ),
+        radial-gradient(
+          circle at bottom right,
+          #e8d0b5 0%,
+          transparent 35%
+        ),
+        #f8f3ec;
+
+      color: #3b2b22;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 22px;
+    }
+
+
+    /* =====================================================
+       CONTENEDOR PRINCIPAL
+       ===================================================== */
+
+    .page {
+      width: 100%;
+      max-width: 520px;
+      text-align: center;
+    }
+
+
+    /* =====================================================
+       ENCABEZADO
+       ===================================================== */
+
+    .small-title {
+
+      font-family: Arial, sans-serif;
+
+      font-size: 11px;
+
+      letter-spacing: 4px;
+
+      text-transform: uppercase;
+
+      color: #9a7659;
+
+      margin-bottom: 12px;
+    }
+
+
+    h1 {
+
+      font-size: clamp(36px, 10vw, 54px);
+
+      font-weight: normal;
+
+      line-height: 1.05;
+
+      margin-bottom: 8px;
+
+      color: #39271e;
+    }
+
+
+    .subtitle {
+
+      font-size: 15px;
+
+      color: #866b58;
+
+      font-style: italic;
+
+      margin-bottom: 20px;
+    }
+
+
+    .ornament {
+
+      color: #b18a5c;
+
+      font-size: 20px;
+
+      margin: 10px 0 25px;
+
+      letter-spacing: 8px;
+    }
+
+
+    /* =====================================================
+       MENÚ DE CATEGORÍAS
+       ===================================================== */
+
+    .menu-title {
+
+      font-size: 22px;
+
+      margin-bottom: 18px;
+
+      color: #4a3529;
+    }
+
+
+    .menu-subtitle {
+
+      font-family: Arial, sans-serif;
+
+      font-size: 11px;
+
+      color: #9a806d;
+
+      letter-spacing: 0.5px;
+
+      margin-bottom: 20px;
+    }
+
+
+    .categories {
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 12px;
+    }
+
+
+    .category-button {
+
+      background: rgba(255, 250, 244, 0.9);
+
+      color: #4b362b;
+
+      border: 1px solid #dfcbb5;
+
+      border-radius: 20px;
+
+      padding: 19px 10px;
+
+      font-family: Arial, sans-serif;
+
+      font-size: 12px;
+
+      line-height: 1.35;
+
+      cursor: pointer;
+
+      transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+
+    .category-button:hover {
+
+      background: #f1e2d1;
+
+      transform: translateY(-2px);
+
+      box-shadow:
+        0 7px 18px rgba(72, 49, 32, 0.08);
+    }
+
+
+    .category-icon {
+
+      display: block;
+
+      font-family: Georgia, serif;
+
+      font-size: 26px;
+
+      margin-bottom: 8px;
+
+      color: #9d7757;
+    }
+
+
+    .category-description {
+
+      display: block;
+
+      margin-top: 5px;
+
+      font-size: 9px;
+
+      color: #9b8471;
+    }
+
+
+    /* =====================================================
+       JUEGO / PREGUNTA
+       ===================================================== */
+
+    #game {
+
+      display: none;
+    }
+
+
+    .category {
+
+      font-family: Arial, sans-serif;
+
+      font-size: 11px;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+
+      color: #9a7659;
+
+      margin-bottom: 16px;
+    }
+
+
+    .card {
+
+      background:
+        rgba(255, 252, 247, 0.95);
+
+      border: 1px solid #e1d1be;
+
+      border-radius: 25px;
+
+      padding: 38px 28px;
+
+      box-shadow:
+        0 12px 35px rgba(72, 49, 32, 0.10);
+
+      position: relative;
+
+      overflow: hidden;
+    }
+
+
+    .card::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 130px;
+
+      height: 130px;
+
+      border-radius: 50%;
+
+      background: #efe0cf;
+
+      opacity: 0.35;
+
+      top: -65px;
+
+      right: -65px;
+    }
+
+
+    .card::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 100px;
+
+      height: 100px;
+
+      border-radius: 50%;
+
+      background: #ead8c3;
+
+      opacity: 0.25;
+
+      bottom: -50px;
+
+      left: -50px;
+    }
+
+
+    .question-number {
+
+      font-family: Arial, sans-serif;
+
+      font-size: 10px;
+
+      letter-spacing: 2px;
+
+      color: #ad8b69;
+
+      margin-bottom: 22px;
+
+      text-transform: uppercase;
+    }
+
+
+    .question {
+
+      position: relative;
+
+      z-index: 2;
+
+      font-size:
+        clamp(23px, 6vw, 31px);
+
+      line-height: 1.4;
+
+      color: #3d2c22;
+
+      margin-bottom: 30px;
+    }
+
+
+    /* =====================================================
+       BOTONES
+       ===================================================== */
+
+    .main-button {
+
+      position: relative;
+
+      z-index: 3;
+
+      border: none;
+
+      border-radius: 50px;
+
+      background: #4b362b;
+
+      color: #fffaf4;
+
+      padding: 14px 25px;
+
+      font-family: Arial, sans-serif;
+
+      font-size: 11px;
+
+      letter-spacing: 1.5px;
+
+      text-transform: uppercase;
+
+      cursor: pointer;
+
+      transition:
+        all 0.25s ease;
+    }
+
+
+    .main-button:hover {
+
+      background: #705442;
+
+      transform: translateY(-2px);
+    }
+
+
+    .secondary-button {
+
+      background: transparent;
+
+      color: #866b58;
+
+      border: none;
+
+      margin-top: 18px;
+
+      font-family: Arial, sans-serif;
+
+      font-size: 10px;
+
+      letter-spacing: 1px;
+
+      cursor: pointer;
+    }
+
+
+    .secondary-button:hover {
+
+      color: #4b362b;
+    }
+
+
+    /* =====================================================
+       CONTADOR
+       ===================================================== */
+
+    .counter {
+
+      margin-top: 18px;
+
+      font-family: Arial, sans-serif;
+
+      font-size: 10px;
+
+      letter-spacing: 1px;
+
+      color: #a08773;
+    }
+
+
+    .footer {
+
+      margin-top: 25px;
+
+      font-size: 12px;
+
+      color: #a08773;
+
+      font-style: italic;
+    }
+
+
+    /* =====================================================
+       ANIMACIÓN
+       ===================================================== */
+
+    .fade {
+
+      animation:
+        fadeIn 0.45s ease;
+    }
+
+
+    @keyframes fadeIn {
+
+      from {
+
+        opacity: 0;
+
+        transform:
+          translateY(8px);
+      }
+
+      to {
+
+        opacity: 1;
+
+        transform:
+          translateY(0);
+      }
+    }
+
+
+    /* =====================================================
+       MÓVIL
+       ===================================================== */
+
+    @media (max-width: 380px) {
+
+      body {
+
+        padding: 15px;
+      }
+
+
+      .categories {
+
+        grid-template-columns: 1fr;
+      }
+
+
+      .card {
+
+        padding: 30px 21px;
+      }
+
+
+      .question {
+
+        font-size: 22px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <main class="page">
+
+
+    <!-- ===================================================
+         ENCABEZADO
+         =================================================== -->
+
+    <div class="small-title">
+      Simón · 24
+    </div>
+
+
+    <h1>
+      Nuestro juego ♡
+    </h1>
+
+
+    <div class="subtitle">
+      Una partida, muchas historias
+    </div>
+
+
+    <div class="ornament">
+      · ✦ ·
+    </div>
+
+
+
+    <!-- ===================================================
+         MENÚ PRINCIPAL
+         =================================================== -->
+
+    <section id="menu">
+
+
+      <div class="menu-title">
+        ¿Qué te tocó?
+      </div>
+
+
+      <div class="menu-subtitle">
+        Elige la categoría que corresponde a tu casilla
+      </div>
+
+
+      <div class="categories">
+
+
+        <!-- NOSOTROS -->
+
+        <button
+          class="category-button"
+          onclick="abrirCategoria('nosotros')"
+        >
+
+          <span class="category-icon">
+            ♡
+          </span>
+
+          Nosotros
+
+          <span class="category-description">
+            Para hablar de los dos
+          </span>
+
+        </button>
+
+
+
+        <!-- CONOCEME -->
+
+        <button
+          class="category-button"
+          onclick="abrirCategoria('conoceme')"
+        >
+
+          <span class="category-icon">
+            ✦
+          </span>
+
+          ¿Qué tanto me conoces?
+
+          <span class="category-description">
+            A ver cuánto sabes de mí
+          </span>
+
+        </button>
+
+
+
+        <!-- RECUERDOS -->
+
+        <button
+          class="category-button"
+          onclick="abrirCategoria('recuerdos')"
+        >
+
+          <span class="category-icon">
+            ◌
+          </span>
+
+          Nuestros recuerdos
+
+          <span class="category-description">
+            Volvamos a algunos momentos
+          </span>
+
+        </button>
+
+
+
+        <!-- RISAS -->
+
+        <button
+          class="category-button"
+          onclick="abrirCategoria('risas')"
+        >
+
+          <span class="category-icon">
+            ☻
+          </span>
+
+          Risas
+
+          <span class="category-description">
+            Porque también vinimos a reír
+          </span>
+
+        </button>
+
+
+
+        <!-- RETOS -->
+
+        <button
+          class="category-button"
+          onclick="abrirCategoria('retos')"
+        >
+
+          <span class="category-icon">
+            ⚡
+          </span>
+
+          Retos
+
+          <span class="category-description">
+            Te tocó hacerlo...
+          </span>
+
+        </button>
+
+
+
+        <!-- FUTURO -->
+
+        <button
+          class="category-button"
+          onclick="abrirCategoria('futuro')"
+        >
+
+          <span class="category-icon">
+            ∞
+          </span>
+
+          Nuestro futuro
+
+          <span class="category-description">
+            Lo que todavía nos falta vivir
+          </span>
+
+        </button>
+
+
+      </div>
+
+
+      <div class="footer">
+        Escanea · Elige · Juega ♡
+      </div>
+
+
+    </section>
+
+
+
+    <!-- ===================================================
+         PANTALLA DE PREGUNTA
+         =================================================== -->
+
+    <section id="game">
+
+
+      <div
+        id="categoryName"
+        class="category"
+      ></div>
+
+
+      <div class="card">
+
+
+        <div
+          id="questionNumber"
+          class="question-number"
+        ></div>
+
+
+        <div
+          id="question"
+          class="question fade"
+        >
+          Cargando...
+        </div>
+
+
+        <button
+          class="main-button"
+          onclick="nuevaPregunta()"
+        >
+          Otra pregunta ↻
+        </button>
+
+
+      </div>
+
+
+      <div
+        id="counter"
+        class="counter"
+      ></div>
+
+
+      <button
+        class="secondary-button"
+        onclick="volverMenu()"
+      >
+        ← Elegir otra categoría
+      </button>
+
+
+      <div class="footer">
+        Guarda este momento ♡
+      </div>
+
+
+    </section>
+
+
+  </main>
+
+
+
+<script>
+
+
+/* ============================================================
+   ============================================================
+   PREGUNTAS
+   ============================================================
+
+   ESTA ES LA ÚNICA PARTE QUE TIENES QUE EDITAR.
+
+   Puedes poner 10, 20, 50 o 100 preguntas por categoría.
+
+   Ejemplo:
+
+   nosotros: [
+
+     "¿Cuál fue nuestra primera cita?",
+
+     "¿Cuál ha sido nuestro viaje favorito?",
+
+     "¿Qué es algo que hago que te hace feliz?"
+
+   ]
+
+   ============================================================
+   ============================================================ */
+
+
+const preguntas = {
+
+
+  /* ==========================================================
+     ♡ NOSOTROS
+     ========================================================== */
+
+  nosotros: [
+
+    "¿Qué fue lo primero que te llamó la atención de mí?",
+
+    "¿Cuál fue el momento en que sentiste que realmente estábamos conectando?",
+
+    "¿Qué es lo que más te gusta de nuestra relación?",
+
+    "¿Qué pequeña cosa hago que te hace sentir querido?",
+
+    "¿Cuál crees que es nuestra mayor fortaleza como pareja?",
+
+    "¿Qué crees que nos hace diferentes de otras parejas?",
+
+    "¿Cuál ha sido uno de tus momentos favoritos conmigo?",
+
+    "¿Qué crees que he aprendido de ti?",
+
+    "¿Qué crees que tú has aprendido de mí?",
+
+    "¿Qué es algo que nunca quieres que cambiemos de nuestra relación?",
+
+    "¿Cuál es nuestra mejor tradición, aunque sea algo muy sencillo?",
+
+    "¿Qué momento conmigo repetirías exactamente igual?",
+
+    "¿Qué crees que es lo que mejor hacemos juntos?",
+
+    "¿Cuál es mi gesto de cariño que más te gusta?",
+
+    "¿Qué canción sientes que podría representar nuestra relación?",
+
+    "¿Qué película o serie crees que se parece más a nosotros?",
+
+    "¿Qué cosa de mí te sigue sorprendiendo?",
+
+    "¿Qué es algo que hacemos juntos que nunca te aburre?",
+
+    "¿Cuál ha sido nuestra mejor cita?",
+
+    "¿Qué apodo mío te gusta más?",
+
+    "¿Qué crees que es lo más bonito de crecer juntos?",
+
+    "¿Qué cosa te gustaría que hiciéramos más seguido?",
+
+    "¿Qué recuerdo nuestro te hace sonreír inmediatamente?",
+
+    "¿Qué es algo que haces conmigo que no haces con nadie más?",
+
+    "Si tuvieras que describir nuestra relación en tres palabras, ¿cuáles serían?",
+
+    "¿Qué crees que es lo que más admiro de ti?",
+
+    "¿Qué es algo que todavía quieres descubrir de mí?",
+
+    "¿Cuál ha sido tu momento más feliz conmigo hasta ahora?",
+
+    "Si pudieras guardar un solo recuerdo nuestro para siempre, ¿cuál sería?",
+
+    "¿Cuál es nuestro chiste interno más absurdo?",
+
+    "¿Cuál ha sido nuestro momento más vergonzoso?",
+
+    "¿Cuál ha sido nuestra discusión más ridícula?",
+
+    "¿Qué cosa hacemos juntos que probablemente nadie más entendería?",
+
+    "¿Qué cosa hago que te da risa aunque no debería?",
+
+    "Si nuestra relación fuera una película, ¿qué genero sería?",
+
+    "¿Qué persona de película se parece más a mí?",
+
+  ],
+
+
+
+  /* ==========================================================
+     ✦ ¿QUÉ TANTO ME CONOCES?
+     ========================================================== */
+
+  conoceme: [
+
+    "¿Cuál es mi comida favorita?",
+
+    "¿Cuál es mi bebida favorita?",
+
+    "¿Cuál es mi postre favorito?",
+
+    "¿Qué comida podría comer muchas veces sin cansarme?",
+
+    "¿Cuál es mi color favorito?",
+
+    "¿Qué cosa me pone de mal humor rápidamente?",
+
+    "¿Qué hago cuando estoy estresada?",
+
+    "¿Cuál es mi mayor manía?",
+
+    "¿Qué cosa me da mucha pereza hacer?",
+
+    "¿Cuál es mi plan perfecto para un día libre?",
+
+    "¿Prefiero playa, montaña o ciudad?",
+
+    "¿Qué destino de viaje me gustaría conocer?",
+
+    "¿Cuál es mi película favorita?",
+
+    "¿Qué género de música escucho más?",
+
+    "¿Cuál es una canción que nunca me cansaría de escuchar?",
+
+    "¿Qué cosa me hace reír fácilmente?",
+
+    "¿Qué es algo que definitivamente no me gusta comer?",
+
+    "¿Cuál es mi mayor miedo absurdo?",
+
+    "¿Qué compraría si tuviera dinero ilimitado por un día?",
+
+    "¿Qué cosa siempre llevo conmigo?",
+
+    "¿Cuál es mi mayor defecto?",
+
+    "¿Cuál es mi mejor cualidad?",
+
+    "¿Qué parte de mi personalidad creo que se parece más a mi mamá o mi papá?",
+
+    "¿Qué me gusta más: recibir regalos, experiencias o cartas?",
+
+    "¿Qué elegiría para una cita perfecta: restaurante, paseo o plan en casa?",
+
+    "¿Qué cosa me hace sentir especialmente querida?",
+
+    "¿Cuál es mi mayor sueño profesional?",
+
+    "¿Qué animal creo que representa mejor mi personalidad?",
+
+    "¿Cuál sería mi trabajo soñado si pudiera elegir cualquier cosa?",
+
+    "¿Que regalo me haría más ilusión?",
+
+    "¿Cuál es mi plan perfecto para un domingo?",
+
+    "¿Qué película podría ver muchas veces?",
+
+    "¿Qué cosa pequeña logra hacerme feliz inmediatamente?",
+
+  ],
+
+
+
+  /* ==========================================================
+     ◌ NUESTROS RECUERDOS
+     ========================================================== */
+
+  recuerdos: [
+
+    "¿Cuál fue nuestra primera conversación?",
+
+    "¿Cuál fue nuestra primera cita?",
+
+    "¿Qué recuerdas de la primera vez que estuvimos juntos a solas?",
+
+    "¿Cuál fue nuestro primer viaje?",
+
+    "¿Cuál ha sido nuestro viaje favorito?",
+
+    "¿Cuál fue nuestra primera foto juntos?",
+
+    "¿Cuál fue nuestro primer regalo?",
+
+    "¿Qué día recuerdas especialmente de nuestro primer año juntos?",
+
+    "¿Cuál fue nuestra primera película o serie juntos?",
+
+    "¿Cuál fue nuestra primera comida juntos?",
+
+    "¿Cuál ha sido nuestra salida más improvisada?",
+
+    "¿Cuál ha sido nuestro momento más vergonzoso?",
+
+    "¿Cuál ha sido nuestro viaje más caótico?",
+
+    "¿Cuál ha sido nuestra mejor aventura?",
+
+    "¿Qué recuerdo nuestro te gustaría volver a vivir?",
+
+    "¿Cuál ha sido la situación más inesperada que hemos vivido juntos?",
+
+    "¿Cuál fue la primera vez que conociste a alguien importante para mí?",
+
+    "¿Cuál es una foto nuestra que te encanta?",
+
+    "¿Cuál ha sido nuestra comida más memorable?",
+
+    "¿Cuál fue nuestra mejor celebración juntos?",
+
+    "¿Cuál fue el día que más nos reímos?",
+
+    "¿Cuál ha sido nuestro peor plan que terminó siendo divertido?",
+
+    "¿Qué lugar visitado juntos te gustaría volver a conocer?",
+
+    "¿Cuál ha sido nuestro mejor atardecer?",
+
+    "¿Cuál ha sido nuestra conversación más memorable?",
+
+    "¿Qué recuerdo nuestro crees que nunca vamos a olvidar?",
+
+    "Cuéntame un recuerdo nuestro que creas que yo ya olvidé",
+
+    "¿Cuál fue tu primera impresión de mí?",
+
+    "¿Cuál fue nuestro primer plan que realmente sentiste como una cita?",
+
+    "¿Cuál es el primer recuerdo que tienes de nosotros que te hacer reir?",
+
+    "Escribe aquí tu quinta pregunta",
+
+    "Escribe aquí tu quinta pregunta",
+
+    "Escribe aquí tu quinta pregunta",
+
+  ],
+
+
+
+  /* ==========================================================
+     ☻ RISAS
+     ========================================================== */
+
+  risas: [
+
+    "¿Cuál de los dos sobreviviría menos tiempo en una isla desierta?a",
+
+    "¿Cuál de los dos llegaría tarde a su propia boda?",
+
+    "¿Cuál de los dos gastaría dinero en algo completamente innecesario?",
+
+    "¿Cuál de los dos tendría más probabilidades de hacerse famoso accidentalmente?",
+
+    "¿Quién tiene las peores excusas?",
+
+    "¿Quién tarda más en decidir qué comer?",
+
+    "¿Quién se demora más arreglándose?",
+
+    "¿Quién se dormiría primero durante una película?",
+
+    "¿Quién sería peor cocinando en un reality?",
+
+    "¿Quién tendría más posibilidades de olvidar dónde dejó las llaves?",
+
+    "Si intercambiáramos cuerpos por un día, ¿qué sería lo primero que harías?",
+
+    "Si yo fuera un animal, ¿cuál sería?",
+
+    "Si tuviéramos un reality show, ¿cómo se llamaría?",
+
+    "¿Qué personaje de dibujos animados se parece más a mí?",
+
+    "¿Cuál de los dos sería peor mintiendo?",
+
+    "¿Qué hábito mío te parece más gracioso?",
+
+    "¿Cuál es mi expresión o frase más típica?",
+
+    "Imita durante 20 segundos una de mis frases o gestos",
+
+    "Haz una imitación de mí cuando estoy enojada",
+
+    "¿Cuál ha sido nuestro momento más ridículo?",
+
+    "Si solo pudiéramos comer una comida durante un mes, ¿cuál elegirías?",
+
+    "Si yo fuera un villano, ¿cuál sería mi plan malvado?",
+
+    "¿Cuál de los dos sería más probable que se riera en un momento completamente inapropiado?",
+
+    "Si tuvieras que inventarme un nuevo apodo ridículo, ¿cuál sería?",
+
+    "Inventa una teoría conspirativa absurda sobre nuestra relación",
+
+    "¿Cuál de los dos sería arrestado primero y por qué?",
+
+    "Si yo tuviera un superpoder inútil, ¿cuál sería?",
+
+    "Si nuestra relación fuera una empresa, ¿qué venderíamos?",
+
+    "Si yo fuera un sabor de helado, ¿cuál sería?",
+
+    "Si nuestra relación fuera un meme, ¿cuál sería?",
+
+    "¿Cuál de los dos sobreviviría menos tiempo sin celular?",
+
+    "¿Cuál de los dos sería peor espía?",
+
+  ],
+
+
+
+  /* ==========================================================
+     ⚡ RETOS
+     ========================================================== */
+
+  retos: [
+
+    "Dame un abrazo de 20 segundos",
+
+    "Dame un beso en la frente",
+
+    "Dime tres cosas que te gustan de mí",
+
+    "Imita mi forma de hablar durante 30 segundos",
+
+    "Hazme reír en menos de 30 segundos",
+
+    "Canta el coro de una canción que nos recuerde a nosotros",
+
+    "Baila durante 20 segundos sin música",
+
+    "Haz una declaración de amor exageradamente dramática",
+
+    "Haz una imitación de mí cuando estoy feliz",
+
+    "Déjame elegir tu foto de perfil durante un día",
+
+    "Di cinco cosas que tenemos en común",
+
+    "Di tres cosas en las que somos completamente diferentes",
+
+    "Mírame a los ojos durante 20 segundos sin reírte",
+
+    "Hazme un cumplido que nunca me hayas dicho",
+
+    "Dime una cosa que quieras hacer conmigo este año",
+
+    "Haz una pose para una foto de pareja",
+
+    "Haz una mini serenata",
+
+    "Dime algo que hayas querido decirme pero nunca habías dicho",
+
+    "Recrea una foto nuestra sin enseñarme cuál",
+
+    "Deja que yo elija una canción y tenemos que bailarla",
+
+    "Planea una cita improvisada para nosotros con presupuesto limitado",
+
+    "Inventa un saludo secreto para nosotros",
+
+    "Dibuja nuestra cita ideal",
+
+    "Descríbeme como si estuvieras vendiéndome en un anuncio",
+
+  ],
+
+
+
+  /* ==========================================================
+     ∞ NUESTRO FUTURO
+     ========================================================== */
+
+  futuro: [
+
+    "¿A qué lugar del mundo te gustaría viajar conmigo?",
+
+    "¿Cuál sería nuestro viaje soñado?",
+
+    "¿Qué experiencia te gustaría vivir conmigo?",
+
+    "¿Qué país te gustaría conocer juntos?",
+
+    "¿Qué tradición te gustaría que tuviéramos como pareja?",
+
+    "¿Qué cosa nueva te gustaría aprender conmigo?",
+
+    "¿Cómo imaginas un fin de semana perfecto juntos dentro de algunos años?",
+
+    "¿Qué sueño personal te gustaría que yo te ayudara a cumplir?",
+
+    "¿Qué sueño mío te gustaría ayudarme a cumplir?",
+
+    "¿Qué actividad te gustaría que se convirtiera en nuestro plan habitual?",
+
+    "¿Qué lugar te imaginas visitando conmigo cuando seamos mayores?",
+
+    "¿Qué te gustaría que nunca perdiéramos aunque pase el tiempo?",
+
+    "¿Qué crees que estaremos haciendo juntos dentro de cinco años?",
+
+    "¿Qué cosa nueva deberíamos probar como pareja?",
+
+    "¿Qué experiencia deberíamos hacer al menos una vez en la vida?",
+
+    "¿Cuál sería nuestra casa soñada?",
+
+    "¿Qué animal tendríamos si pudiéramos elegir cualquiera?",
+
+    "¿Qué ciudad crees que nos gustaría para vivir una temporada?",
+
+    "¿Cuál sería nuestro plan perfecto para cuando seamos viejitos?",
+
+    "¿Qué lugar te gustaría mostrarme algún día?",
+
+    "¿Qué logro mío quieres estar ahí para celebrar?",
+
+    "¿Qué promesa pequeña te gustaría que nos hiciéramos?",
+
+    "Si pudiéramos reservar mañana un viaje a cualquier lugar, ¿a dónde iríamos?",
+
+    "¿Cómo imaginas un día normal de nosotros dentro de 10 años?",
+
+    "¿Qué cosa todavía no hemos hecho y definitivamente deberíamos hacer?",
+
+    "Dime al oído algo que te parezca irresistible de mí",
+
+    "Hazme tu mejor mirada de coqueteo durante 10 segundos",
+
+    "Recrea nuestro primer beso",
+
+    "Dame un beso donde tú elijas",
+
+    "Hazme una invitación a una cita como si estuvieras intentando conquistarme por primera vez",
+
+    "Inventa un nombre para nuestra futura mascota",
+
+  ]
+
+};
+
+
+
+/* ============================================================
+   NOMBRES DE LAS CATEGORÍAS
+   ============================================================ */
+
+const nombresCategorias = {
+
+  nosotros:
+    "♡ Nosotros",
+
+  conoceme:
+    "✦ ¿Qué tanto me conoces?",
+
+  recuerdos:
+    "◌ Nuestros recuerdos",
+
+  risas:
+    "☻ Risas",
+
+  retos:
+    "⚡ Retos",
+
+  futuro:
+    "∞ Nuestro futuro"
+
+};
+
+
+
+/* ============================================================
+   VARIABLES
+   ============================================================ */
+
+let categoriaActual = "";
+
+
+
+/* ============================================================
+   OBTENER PREGUNTAS UTILIZADAS
+   ============================================================ */
+
+function obtenerUsadas(categoria) {
+
+  const guardadas =
+    localStorage.getItem(
+      "preguntas_" + categoria
+    );
+
+
+  if (!guardadas) {
+
+    return [];
+
+  }
+
+
+  return JSON.parse(guardadas);
+
+}
+
+
+
+/* ============================================================
+   GUARDAR PREGUNTAS UTILIZADAS
+   ============================================================ */
+
+function guardarUsadas(
+  categoria,
+  usadas
+) {
+
+  localStorage.setItem(
+
+    "preguntas_" + categoria,
+
+    JSON.stringify(usadas)
+
+  );
+
+}
+
+
+
+/* ============================================================
+   ABRIR CATEGORÍA
+   ============================================================ */
+
+function abrirCategoria(categoria) {
+
+
+  categoriaActual =
+    categoria;
+
+
+  document.getElementById("menu")
+    .style.display = "none";
+
+
+  document.getElementById("game")
+    .style.display = "block";
+
+
+  document.getElementById("categoryName")
+    .textContent =
+      nombresCategorias[categoria];
+
+
+  nuevaPregunta();
+
+}
+
+
+
+/* ============================================================
+   VOLVER AL MENÚ
+   ============================================================ */
+
+function volverMenu() {
+
+
+  document.getElementById("game")
+    .style.display = "none";
+
+
+  document.getElementById("menu")
+    .style.display = "block";
+
+
+}
+
+
+
+/* ============================================================
+   MOSTRAR NUEVA PREGUNTA
+   ============================================================ */
+
+function nuevaPregunta() {
+
+
+  const lista =
+    preguntas[categoriaActual];
+
+
+  if (!lista || lista.length === 0) {
+
+
+    document.getElementById("question")
+      .textContent =
+        "Todavía no hay preguntas en esta categoría ♡";
+
+
+    return;
+
+  }
+
+
+
+  /* ---------------------------------------------
+     Preguntas que ya aparecieron
+     --------------------------------------------- */
+
+  let usadas =
+    obtenerUsadas(categoriaActual);
+
+
+
+  /* ---------------------------------------------
+     Si ya aparecieron todas,
+     empezamos nuevamente
+     --------------------------------------------- */
+
+  if (usadas.length >= lista.length) {
+
+    usadas = [];
+
+  }
+
+
+
+  /* ---------------------------------------------
+     Buscar una pregunta nueva
+     --------------------------------------------- */
+
+  let indice;
+
+
+  do {
+
+    indice =
+      Math.floor(
+        Math.random() *
+        lista.length
+      );
+
+  }
+
+  while (
+    usadas.includes(indice)
+  );
+
+
+
+  /* ---------------------------------------------
+     Guardar como utilizada
+     --------------------------------------------- */
+
+  usadas.push(indice);
+
+
+  guardarUsadas(
+    categoriaActual,
+    usadas
+  );
+
+
+
+  /* ---------------------------------------------
+     Mostrar pregunta
+     --------------------------------------------- */
+
+  const elemento =
+    document.getElementById(
+      "question"
+    );
+
+
+  elemento.classList.remove(
+    "fade"
+  );
+
+
+  void elemento.offsetWidth;
+
+
+  elemento.classList.add(
+    "fade"
+  );
+
+
+  elemento.textContent =
+    lista[indice];
+
+
+
+  /* ---------------------------------------------
+     Número de pregunta
+     --------------------------------------------- */
+
+  document.getElementById(
+    "questionNumber"
+  ).textContent =
+
+    "Pregunta " +
+    usadas.length;
+
+
+
+  /* ---------------------------------------------
+     Contador
+     --------------------------------------------- */
+
+  document.getElementById(
+    "counter"
+  ).textContent =
+
+    usadas.length +
+    " de " +
+    lista.length +
+    " preguntas";
+
+}
+
+
+
+/* ============================================================
+   INICIAR PÁGINA
+   ============================================================
+
+   Como ahora solamente utilizaremos UN QR,
+   la página siempre comienza mostrando
+   el menú de categorías.
+
+   ============================================================ */
+
+document.getElementById("menu")
+  .style.display = "block";
+
+
+document.getElementById("game")
+  .style.display = "none";
+
+
+</script>
+
+</body>
+</html>
